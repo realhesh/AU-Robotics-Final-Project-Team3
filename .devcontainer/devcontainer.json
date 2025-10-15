@@ -1,0 +1,45 @@
+{
+  "name": "ROS 2 Workspace humble-ros-base",
+  "remoteUser": "${localEnv:USERNAME}",
+  "build": {
+      "dockerfile": "Dockerfile",
+      "args": {
+          "USERNAME": "${localEnv:USERNAME}",
+          "GID": "1000",
+          "UID": "1000"
+      }
+  },
+  "customizations": {
+      "vscode": {
+          "extensions": [
+            "ms-python.python",
+            "charliermarsh.ruff",
+            "ms-vscode.cpptools-extension-pack",
+            "ms-iot.vscode-ros",
+            "smilerobotics.urdf",
+            "redhat.vscode-xml",
+            "tamasfe.even-better-toml",
+            "timonwong.shellcheck",
+            "yzhang.markdown-all-in-one",
+            "GitHub.copilot",
+            "GitHub.copilot-chat",
+            "ms-python.black-formatter",
+            "ms-vscode.cpptools"
+          ],
+          "settings": {
+              "files.associations": {
+                  "*.rviz": "yaml",
+                  "*.srdf": "xml",
+                  "*.urdf": "xml",
+                  "*.xacro": "xml"
+              }
+          }
+      }
+  },
+  "workspaceFolder": "/home/${localEnv:USERNAME}/ros2_ws",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/${localEnv:USERNAME}/ros2_ws,type=bind",
+  "mounts": [],
+  "runArgs": [
+      "--net=host"
+  ]
+}
