@@ -25,5 +25,27 @@ def QR_reader(cap):
 
             #Get bounding box coordinates (for framing)
             rect_x,rect_y,rect_w,rect_h = obj.rect
-            
+
+            #Making a frame around the QR
+            if result_type == 'valid_coordinates':
+                print(f"✅ VALID COORDINATES: x={x}, y={y}")
+                #Draw green box and display cooredinates
+                cv2.rectangle(frame,(rect_x, rect_y), (rect_x + rect_w, rect_y + rect_h), (0, 255, 0), 3)
+                cv2.putText(frame, f"Coordinates: x={x}, y={y}", (rect_x, rect_y - 10), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            else:#Other content
+                print("📝 OTHER CONTENT: No coordinate pattern found")
+                #Draw red box for other content
+                cv2.rectangle(frame, (rect_x, rect_y), (rect_x + rect_w, rect_y + rect_h), (0, 0, 255), 2)
+                cv2.putText(frame, "OTHER CONTENT", (rect_x, rect_y - 10), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+        #Display the frame
+        cv2.imshow('QR Code Format Validator',frame)
+
+        #Break the loop when 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+        
+
             
