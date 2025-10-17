@@ -15,11 +15,11 @@ class ControllerNode(Node):
         if pygame.joystick.get_count()==0:
             self.get_logger().error("No joystick detected!")
             return 
-        self.jpystick=pygame.joystick.Joystick()
+        self.joystick=pygame.joystick.Joystick()
         self.joystick.init()
         self.get_logger().info(f"joystick detected: {self.joystick.get_name()}")
         
-        thread=threading.Thread(Target=self.listen_joystick)
+        thread=threading.Thread(target=self.listen_joystick)
         thread.daemon=True
         thread.start()
 
