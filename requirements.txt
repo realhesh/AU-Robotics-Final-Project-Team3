@@ -53,6 +53,7 @@ PySide6==6.10.0
 PySide6_Addons==6.10.0
 PySide6_Essentials==6.10.0
 python-qt-binding==2.2.2
+pyzbar==0.1.8
 qt-dotgraph==2.7.5
 qt-gui==2.7.5
 qt-gui-cpp==2.7.5
