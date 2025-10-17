@@ -34,7 +34,6 @@ def QR_reader(cap):
             #Validate the formate
             result_type, x, y = validate_QR_format()
             
-
             #Get bounding box coordinates (for framing)
             rect_x,rect_y,rect_w,rect_h = obj.rect
 
