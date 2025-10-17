@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gui = RobotGui_pkg.GuiNode:main',
+            'controller_node=RobotGui_pkg.controller_node:main',
         ],
     },
 )
