@@ -1,5 +1,6 @@
 from setuptools import find_packages, setup
-
+import os
+from glob import glob
 package_name = 'RobotGui_pkg'
 
 setup(
@@ -10,6 +11,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'pics'), glob('pics/*.jpg')),
+        (os.path.join('share', package_name, 'pics'), glob('pics/*.gif'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,

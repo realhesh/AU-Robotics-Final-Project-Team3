@@ -2,7 +2,8 @@ import sys
 import threading
 import rclpy 
 import numpy
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication , QMainWindow , QLabel , QVBoxLayout, QWidget
+from PySide6.QtCore import Qt,QRect
 from RobotGui_pkg.gui.window import Window
 from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
 if __package__ is None and not getattr(sys, 'frozen', False):

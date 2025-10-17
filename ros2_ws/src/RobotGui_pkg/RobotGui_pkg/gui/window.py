@@ -1,32 +1,51 @@
 from PySide6.QtWidgets import QWidget, QMainWindow , QVBoxLayout , QLabel 
 from PySide6.QtCore import QTimer
-#from RobotGui.gui.camera_display import CameraDisplay
+from RobotGui_pkg.gui.CameraDisplay import CameraDisplay
+from PySide6.QtCore import Qt , QRect
+from PySide6.QtGui import QPalette , QColor , QPainter , QMovie
 #from RobotGui.gui.coordinates_display import CoordinatesDisplay
 #from RobotGui.core.comm.client import setup
 #from RobotGui.core.cv import Camera
 from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
+from ament_index_python.packages import get_package_share_directory #i need this to go to where my pkg runs from install folder
+import os
+
 class Window(QMainWindow):
     def __init__(self ,ros_node:GuiRosNode | None = None):
         super().__init__()
+        #
+        self._PkgPath = get_package_share_directory('RobotGui_pkg')
+        self._ImgPath = os.path.join(self._PkgPath,'pics','cow-cows.gif')
+        self.movie = QMovie(self._ImgPath)
+        self.movie.frameChanged.connect(self.update)  
+        self.movie.start()
         self.setCentralWidget(CentralWidget(ros_node=ros_node))
         self.setMinimumSize(1280, 720)
         self.show()
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        current_frame = self.movie.currentPixmap()
+        if not current_frame.isNull():
+            painter.drawPixmap(self.rect(), current_frame)
+        super().paintEvent(event)
+  
+    
 
         
 
 class CentralWidget(QWidget):
     def __init__(self,parent:QWidget | None = None,ros_node:GuiRosNode | None = None):
         super().__init__(parent)
-        self._label = QLabel(self)
-        self._itr = 0
-        self._label.setText(f"Hello, Robot GUI! {self._itr}")
         self.ros_node = ros_node
-        self.ros_node.timer = self.ros_node.create_timer(1.0, self.update)
-        # self._vbox.addWidget(self._coords_widget)
-        # self._camera_timer = QTimer()
-        # self._camera_timer.timeout.connect(self._camera_widget.update_view)
-        # self._camera_timer.setInterval(50)
-        # self._camera_timer.start()
+        self._mainVBox = QVBoxLayout(self)
+        self._CameraWidget = CameraDisplay()
+        self._CameraWidget.setMinimumSize(640, 480)
+        self._mainVBox.addWidget(self._CameraWidget,alignment=Qt.AlignCenter)
+        self.ros_node.get_logger().info(f"{self._CameraWidget.size()}")
+        self._CameraTimer = QTimer()
+        self._CameraTimer.timeout.connect(self._CameraWidget.update_view)
+        self._CameraTimer.setInterval(50)
+        self._CameraTimer.start()
     def update(self):
         self._itr+=1
         self._label.setText(f"Hello, Robot GUI! {self._itr}")
