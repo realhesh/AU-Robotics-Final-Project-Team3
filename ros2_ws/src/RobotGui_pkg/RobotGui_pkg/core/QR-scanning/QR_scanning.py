@@ -2,6 +2,18 @@ import cv2
 from pyzbar.pyzbar import decode
 import re
 
+def validate_QR_format(qr_data):
+    #Pattern for x=#&y=# format (Anywhere in a string , Upper and Lower cases)
+    pattern = r'[xX]=([\d.-]+)&[yY]=([\d.-]+)'
+
+    match = re.search(pattern, qr_data.strip())
+    if match:
+        x = float(match.group(1))
+        y = float(match.group(2))
+        return 'valid_coordinates', x, y
+    else:
+        return 'other_content', None, None
+    
 def QR_reader(cap):
     while True:
         ret, frame = cap.read()
@@ -18,10 +30,10 @@ def QR_reader(cap):
             qr_data = obj.data.decode('utf-8')
             print(f"\nQR Code Content: '{qr_data}'")
 
-            '''
-            Validate the formate
-            result_type, x, y = Validate function
-            '''
+            
+            #Validate the formate
+            result_type, x, y = validate_QR_format()
+            
 
             #Get bounding box coordinates (for framing)
             rect_x,rect_y,rect_w,rect_h = obj.rect
@@ -33,7 +45,8 @@ def QR_reader(cap):
                 cv2.rectangle(frame,(rect_x, rect_y), (rect_x + rect_w, rect_y + rect_h), (0, 255, 0), 3)
                 cv2.putText(frame, f"Coordinates: x={x}, y={y}", (rect_x, rect_y - 10), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-            else:#Other content
+            #Other content
+            else:
                 print("📝 OTHER CONTENT: No coordinate pattern found")
                 #Draw red box for other content
                 cv2.rectangle(frame, (rect_x, rect_y), (rect_x + rect_w, rect_y + rect_h), (0, 0, 255), 2)
