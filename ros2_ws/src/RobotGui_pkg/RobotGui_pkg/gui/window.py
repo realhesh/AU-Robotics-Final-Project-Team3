@@ -7,6 +7,7 @@ from PySide6.QtGui import QPalette , QColor , QPainter , QMovie
 #from RobotGui.core.comm.client import setup
 #from RobotGui.core.cv import Camera
 from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
+from RobotGui_pkg.core.joystick import JoystickWidget
 from ament_index_python.packages import get_package_share_directory #i need this to go to where my pkg runs from install folder
 import os
 
