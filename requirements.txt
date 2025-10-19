@@ -21,6 +21,7 @@ cv-bridge==4.1.0
 demo-nodes-py==0.33.7
 diagnostic-msgs==5.3.6
 domain-coordinator==0.12.0
+dotenv==0.9.9
 example-interfaces==0.12.0
 examples-rclpy-executors==0.19.6
 examples-rclpy-minimal-action-client==0.19.6
@@ -53,8 +54,8 @@ pygame==2.6.1
 PySide6==6.10.0
 PySide6_Addons==6.10.0
 PySide6_Essentials==6.10.0
+python-dotenv==1.1.1
 python-qt-binding==2.2.2
-pyzbar==0.1.8
 qt-dotgraph==2.7.5
 qt-gui==2.7.5
 qt-gui-cpp==2.7.5
