@@ -15,7 +15,7 @@ class ControllerNode(Node):
         if pygame.joystick.get_count()==0:
             self.get_logger().error("No joystick detected!")
             return 
-        self.joystick=pygame.joystick.Joystick()
+        self.joystick = pygame.joystick.Joystick(0)
         self.joystick.init()
         self.get_logger().info(f"joystick detected: {self.joystick.get_name()}")
         
@@ -24,26 +24,29 @@ class ControllerNode(Node):
         thread.start()
 
     def listen_joystick(self):
-        while rclpy.ok():
-            pygame.event.pump()
-            y_axis= -self.joystick.get_axis(1) #up/down   
-            x_axis = self.joystick.get_axis(0)  #left/right
+        try:
+            while rclpy.ok():
+                pygame.event.pump()
+                y_axis = -self.joystick.get_axis(1) #up/down   
+                x_axis = self.joystick.get_axis(0)  #left/right
             
             
-            left_motor = y_axis + x_axis
-            right_motor =y_axis - x_axis
+                left_motor = y_axis + x_axis
+                right_motor = y_axis - x_axis
             
             
-            left_motor = max(min(left_motor, 1), -1)
-            right_motor = max(min(right_motor, 1), -1)
+                left_motor = max(min(left_motor, 1), -1)
+                right_motor = max(min(right_motor, 1), -1)
             
-            msg = String()
-            msg.data = f"left:{left_motor}, right:{right_motor}"
+                msg = String()
+                msg.data = f"left:{left_motor}, right:{right_motor}"
             
-            self.publisher_.publish(msg)
-            self.get_logger().info(f"Publishing: {msg.data}")
+                self.publisher_.publish(msg)
+                self.get_logger().info(f"Publishing: {msg.data}")
             
-            pygame.time.wait(50)  
+                pygame.time.wait(500)
+        except Exception as e:
+            self.get_logger().error(f"Error in joystick thread: {e}")
 
 
 

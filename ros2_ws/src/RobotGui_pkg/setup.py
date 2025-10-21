@@ -14,7 +14,7 @@ setup(
         (os.path.join('share', package_name, 'pics'), glob('pics/*.jpg')),
         (os.path.join('share', package_name, 'pics'), glob('pics/*.gif'))
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools','PySide6','pygame',],
     zip_safe=True,
     maintainer='hesham',
     maintainer_email='hesham@todo.todo',
@@ -29,6 +29,7 @@ setup(
         'console_scripts': [
             'gui = RobotGui_pkg.GuiNode:main',
             'controller_node=RobotGui_pkg.controller_node:main',
+            'publisher=RobotGui_pkg.publisher_speed_of_motor:main',
         ],
     },
 )
