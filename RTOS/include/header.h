@@ -7,7 +7,6 @@
 #define right_encoder_A 14
 #define right_encoder_B 15
 
-#include <PS4Controller.h>
 #include <servo.h>
 
 Servo gripper;
@@ -16,8 +15,6 @@ gripper.attach(); // hnhot hna elpin elhnwsl 3leh elservo
 int leftx = 0, lefty = 0;
 int rightx = 0, righty = 0;
 int gripper = 0;
-
-
 
 class encoder
 {
@@ -29,7 +26,5 @@ public:
 
     unsigned long getTicks();
 };
-
-void controller();
 
 #endif // HEADER_H
