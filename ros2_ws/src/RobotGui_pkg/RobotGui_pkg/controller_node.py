@@ -39,20 +39,23 @@ class ControllerNode(Node):
                 right_motor = max(min(right_motor, 1), -1)*255
                 #gripper up and down
                 vertical_gripper=-self.joystick.get_axis(3) #up/dowm
-                vertical_gripper=max(min(vertical_gripper, 1), -1)
+                vertical_gripper=max(min(vertical_gripper, 1), -1)*255
                 #gripper control buttons for open/close
-                square_button=self.joystick.get_button(0) #square
-                x_button=self.joystick.get_button(1) #x
+                square_button=self.joystick.get_button(0) #square for closing the gripper
+                x_button=self.joystick.get_button(1) #x for opening the gripper
                 circle_button=self.joystick.get_button(2) #circle
-                #hna feh two options 0 degrees mean that gripper is opened and 180 degrees mean that gripper is close or
-                #180 degrees mean that gripper is opened and 0 degrees mean that gripper is closed hsb elservo
+                L1_button=self.joystick.get_button(4) #L1 for reseting 
+                R1_button=self.joystick.get_button(5) #R1 for saving location
+                #hna feh two options 0 degrees means that gripper is opened and 180 degrees mean that gripper is close or
+                #180 degrees means that gripper is opened and 0 degrees mean that gripper is closed hsb elservo
                 if square_button:  # Close gripper
                     self.gripper_angle = min(self.gripper_angle + 5, 180) #lsa hzbt l part da 3shan msh 3rfa hwa mafroud elgripper max yfth ad eh 3shan yb2a 3la ad elbox belzbt
                 if x_button:       # Open gripper
                     self.gripper_angle = max(self.gripper_angle - 5, 0)#lsa hzbt this part
         
                 msg = String()
-                msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button}"
+               msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button},reseting:{L1_button},saving_location{R1_button}"
+            
             
                 self.publisher_.publish(msg)
                 self.get_logger().info(f"Publishing: {msg.data}")
