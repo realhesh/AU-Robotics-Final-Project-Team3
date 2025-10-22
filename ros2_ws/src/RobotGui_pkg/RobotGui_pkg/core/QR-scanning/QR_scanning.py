@@ -4,6 +4,10 @@ import re
 import numpy as np
 
 margin_cm = 1  
+lower_color = np.array([0, 50, 50]);
+upper_color = np.array([10, 255, 255]);
+lower_color2 = np.array([170, 50, 50]);
+upper_color2 = np.array([180, 255, 255]);
 
 # Checking if the QR surrounded by green color (1 cm left and right)
 def is_qr_surrounded_by_green(frame, qr_bbox, margin_cm=1, dpi=96):
@@ -28,29 +32,21 @@ def is_qr_surrounded_by_green(frame, qr_bbox, margin_cm=1, dpi=96):
         # Convert to HSV for better color detection
         hsv = cv2.cvtColor(region, cv2.COLOR_RGB2HSV)
         
-        # Define green color range in HSV
-        lower_green1 = np.array([35, 50, 50])
-        upper_green1 = np.array([85, 255, 255])
+        # Create masks for the color
+        mask1 = cv2.inRange(hsv, lower_color, upper_color)
+        mask2 = cv2.inRange(hsv, lower_color2, upper_color2)
+        color_mask = cv2.bitwise_or(mask1, mask2)
         
-        # Alternative green range for different lighting
-        lower_green2 = np.array([25, 30, 30])
-        upper_green2 = np.array([95, 255, 255])
+        # Calculate percentage of color pixels
+        color_ratio = np.sum(color_mask > 0) / max(1, color_mask.size)
         
-        # Create masks for green color
-        mask1 = cv2.inRange(hsv, lower_green1, upper_green1)
-        mask2 = cv2.inRange(hsv, lower_green2, upper_green2)
-        green_mask = cv2.bitwise_or(mask1, mask2)
-        
-        # Calculate percentage of green pixels
-        green_ratio = np.sum(green_mask > 0) / max(1, green_mask.size)
-        
-        # 60% of the pixels should be green
-        return green_ratio > 0.6  
+        # 60% of the pixels should be the specified color
+        return color_ratio > 0.6  
     
-    left_green = is_region_green(left_region)
-    right_green = is_region_green(right_region)
+    left_color = is_region_green(left_region)
+    right_color = is_region_green(right_region)
     
-    return left_green and right_green
+    return left_color and right_color
 
 def validate_QR_format(qr_data):
     #Pattern for x=#&y=# format (Anywhere in a string , Upper and Lower cases)
