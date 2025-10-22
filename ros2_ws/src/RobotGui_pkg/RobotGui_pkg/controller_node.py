@@ -51,16 +51,16 @@ class ControllerNode(Node):
                 if square_button:  # Close gripper
                     self.gripper_angle = min(self.gripper_angle + 5, 180) #lsa hzbt l part da 3shan msh 3rfa hwa mafroud elgripper max yfth ad eh 3shan yb2a 3la ad elbox belzbt
                 if x_button:       # Open gripper
-                    self.gripper_angle = max(self.gripper_angle - 5, 0)#lsa hzbt this part
+                    self.gripper_angle = max(self.gripper_angle - 5, 0)
         
                 msg = String()
-               msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button},reseting:{L1_button},saving_location{R1_button}"
+               msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button},reseting:{L1_button},saving_location:{R1_button}"
             
             
                 self.publisher_.publish(msg)
                 self.get_logger().info(f"Publishing: {msg.data}")
             
-                pygame.time.wait(500)
+                pygame.time.wait(100)
         except Exception as e:
             self.get_logger().error(f"Error in joystick thread: {e}")
 
