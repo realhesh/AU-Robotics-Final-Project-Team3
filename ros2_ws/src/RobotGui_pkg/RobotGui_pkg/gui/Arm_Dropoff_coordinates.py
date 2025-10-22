@@ -84,7 +84,14 @@ class ArmDropoffCordinatesWidget(QWidget):
         self.Arm_Dropoff_label = QLabel("Arm Dropoff Coordinate : (0.00 , 0.00 )")
         self.Arm_Dropoff_label.setFont(QFont("Arial", 15 ))
         self.Arm_Dropoff_label.setStyleSheet("color: green;")
-        
+        layout.addWidget(self.x_value_label, 0, 0)
+        layout.addWidget(self.y_value_label, 1, 0)
+        layout.addWidget(self.angle_value_label, 2, 0)
+        layout.addWidget(self.distance_error_label, 3, 0)
+        layout.addWidget(self.angle_error_label, 4, 0)
+        layout.addWidget(self.target_x_label, 5, 0)
+        layout.addWidget(self.target_y_label, 6, 0)
+        layout.addWidget(self.Arm_Dropoff_label, 7, 0)
         
        
     def update_target_display(self):
