@@ -11,6 +11,8 @@ class JoystickWidget(QWidget):
         self.setMinimumSize(300, 300)
         self._x = 0.0
         self._y = 0.0
+        self._rx = 0.0
+        self._lx = 0.0
 
         
         pygame.init()
@@ -30,8 +32,13 @@ class JoystickWidget(QWidget):
             pygame.event.pump()
             x = self.joystick.get_axis(0)
             y = self.joystick.get_axis(1)
+            r_y = self.joystick.get_axis(2)
+            r_x = self.joystick.get_axis(3)
+
             self._x = x
             self._y = y
+            self._rx = r_x
+            self._ry = r_y
             self.update()  # repaint
             time.sleep(0.05)
 
@@ -45,21 +52,39 @@ class JoystickWidget(QWidget):
         painter.drawRect(self.rect())
 
         # ellipse -> the cover of analog of joystick
-        self._centerx = self.width() / 2
-        self._centery = self.height() / 2
+        self._lcenterx = self.width() / 4
+        self._lcentery = self.height() / 2
 
         painter.setBrush(QBrush(QColor(180 , 0 , 0)))
-        self._ellipse_rad = min(self.width() , self.height()) / 3
+        self._ellipse_rad = min(self.width() , self.height()) / 5
 
-        painter.drawEllipse(self._centerx - self._ellipse_rad , self._centery - self._ellipse_rad , self._ellipse_rad * 2 , self._ellipse_rad * 2) # type: ignore
+        painter.drawEllipse(self._lcenterx - self._ellipse_rad , self._lcentery - self._ellipse_rad , self._ellipse_rad * 2 , self._ellipse_rad * 2) # type: ignore
         
         # ellipse -> analog of joystick
-        self._analog_rad = 30
-        self._movex = self._centerx + self._x * (self._ellipse_rad - self._analog_rad)
-        self._movey = self._centery + self._y * (self._ellipse_rad - self._analog_rad)
+        self._analog_rad = 20
+        self._lmovex = self._lcenterx + self._x * (self._ellipse_rad - self._analog_rad)
+        self._lmovey = self._lcentery + self._y * (self._ellipse_rad - self._analog_rad)
 
         painter.setBrush(QBrush(QColor(255, 50, 50)))
-        painter.drawEllipse(self._movex - self._analog_rad , self._movey - self._analog_rad , self._analog_rad * 2 , self._analog_rad * 2) # type: ignore
+        painter.drawEllipse(self._lmovex - self._analog_rad , self._lmovey - self._analog_rad , self._analog_rad * 2 , self._analog_rad * 2) # type: ignore
+
+
+        self._rcenterx = 3 * self.width() / 4
+        self._rcentery = self.height() / 2
+
+        painter.setBrush(QBrush(QColor(180 , 0 , 0)))
+        
+
+        painter.drawEllipse(self._rcenterx - self._ellipse_rad , self._rcentery - self._ellipse_rad , self._ellipse_rad * 2 , self._ellipse_rad * 2) # type: ignore
+        
+        # ellipse -> analog of joystick
+    
+        self._rmovex = self._rcenterx + self._rx * (self._ellipse_rad - self._analog_rad)
+        self._rmovey = self._rcentery + self._ry * (self._ellipse_rad - self._analog_rad)
+
+        painter.setBrush(QBrush(QColor(255, 50, 50)))
+        painter.drawEllipse(self._rmovex - self._analog_rad , self._rmovey - self._analog_rad , self._analog_rad * 2 , self._analog_rad * 2) # type: ignore    
+
 
 
     def stop(self):
