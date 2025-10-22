@@ -54,7 +54,7 @@ class ControllerNode(Node):
                     self.gripper_angle = max(self.gripper_angle - 5, 0)
         
                 msg = String()
-               msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button},reseting:{L1_button},saving_location:{R1_button}"
+                msg.data = f"left:{left_motor}, right:{right_motor}, gripper_position:{vertical_gripper}, gripper_servo:{self.gripper_angle}, circle_button:{circle_button},reseting:{L1_button},saving_location:{R1_button}"
             
             
                 self.publisher_.publish(msg)
