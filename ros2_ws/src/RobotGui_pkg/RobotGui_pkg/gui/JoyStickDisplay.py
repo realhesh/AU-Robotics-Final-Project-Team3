@@ -30,10 +30,16 @@ class JoystickWidget(QWidget):
     def _joystick_loop(self):
         while self.running:
             pygame.event.pump()
+#             | Controller      | Left X | Left Y | Right X | Right Y |
+#             | --------------- | ------ | ------ | ------- | ------- |
+#             | Xbox            | 0      | 1      | 4       | 3       |
+#             | PS4 (DualShock) | 0      | 1      | 2       | 5       |
+#             | Logitech        | 0      | 1      | 2       | 3       |
+
             x = self.joystick.get_axis(0)
             y = self.joystick.get_axis(1)
-            r_y = self.joystick.get_axis(2)
-            r_x = self.joystick.get_axis(3)
+            r_y = self.joystick.get_axis(4) #configured for xbox rn 
+            r_x = self.joystick.get_axis(3) #configured for xbox rn 
 
             self._x = x
             self._y = y
