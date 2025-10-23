@@ -4,10 +4,10 @@ import re
 import numpy as np
 
 margin_cm = 1  
-lower_color = np.array([0, 50, 50]);
-upper_color = np.array([10, 255, 255]);
-lower_color2 = np.array([170, 50, 50]);
-upper_color2 = np.array([180, 255, 255]);
+lower_color = np.array([100, 50, 50])    
+upper_color = np.array([130, 255, 255])  
+lower_color2 = np.array([90, 40, 40])     
+upper_color2 = np.array([140, 255, 255])
 
 # Checking if the QR surrounded by green color (1 cm left and right)
 def is_qr_surrounded_by_green(frame, qr_bbox, margin_cm=1, dpi=96):
