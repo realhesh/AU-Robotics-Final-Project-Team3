@@ -3,7 +3,7 @@ import time
 
 broker = "10.96.185.112"  ## use ip address of wifi or use the ip address of esp 
 port = 1883 
-Topic = "AUR/controls"
+Topic = "AUR/localization"
 
  
 
@@ -39,4 +39,5 @@ def Start_Subscriber():
     
     
 if __name__=="__main__":
+
     Start_Subscriber()
