@@ -37,12 +37,13 @@ class CentralWidget(QWidget):
         super().__init__(parent)
         self.ros_node = ros_node
         self._mainVBox = QVBoxLayout(self)
-        self._CameraWidget = CameraDisplay()
-        self._CameraWidget.setMinimumSize(640, 480)
+       
         self._mainVBox.addWidget(self._CameraWidget,alignment=Qt.AlignCenter)
         self._DataHBox = QHBoxLayout()
         self._mainVBox.addLayout(self._DataHBox)
         self._ArmDropoffCoordinatesWidget = ArmDropoffCordinatesWidget(data = Arm_Dropoff_Logic(),ros_node=ros_node)
+        self._CameraWidget = CameraDisplay(self._ArmDropoffCoordinatesWidget)
+        self._CameraWidget.setMinimumSize(640, 480)
         self._DataHBox.addWidget(self._ArmDropoffCoordinatesWidget)
         self._JoyStickWidget = JoystickWidget()
         self._DataHBox.addWidget(self._JoyStickWidget)

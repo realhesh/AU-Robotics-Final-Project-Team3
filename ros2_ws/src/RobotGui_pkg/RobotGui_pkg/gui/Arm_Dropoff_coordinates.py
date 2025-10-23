@@ -51,10 +51,11 @@ class ArmDropoffCordinatesWidget(QWidget):
         self.port = 1883
         self.topic = "AUR/localization"
         self.Start_Subscriber()
+
         self.x_value = 0.0
         self.y_value = 0.0
         self.angle_value = 0.0
-
+        
         self.x_value_label = QLabel("X: 0.00 cm")
         self.x_value_label.setFont(QFont("Arial", 15))
         self.x_value_label.setStyleSheet("color : green")
@@ -100,7 +101,7 @@ class ArmDropoffCordinatesWidget(QWidget):
         layout.addWidget(self.angle_error_label, 4, 0)
         layout.addWidget(self.target_x_label, 5, 0)
         layout.addWidget(self.target_y_label, 6, 0)
-        layout.addWidget(self.Arm_Dropoff_label, 7, 0)
+        #layout.addWidget(self.Arm_Dropoff_label, 7, 0)
         
        
     def update_display(self):
@@ -108,9 +109,11 @@ class ArmDropoffCordinatesWidget(QWidget):
         self.y_value_label.setText(f"Y : {self.y_value:.2f} cm")
         self.angle_value_label.setText(f"Angle : {self.angle_value:.2f} cm")
 
-        self.target_x_label.setText(f"Target X : {self.data.target_X:.2f} cm")
-        self.target_y_label.setText(f"Target Y : {self.data.target_Y:.2f} cm")
+        self.target_x_label.setText(f"Target X : {self.target_X:.2f} cm")
+        self.target_y_label.setText(f"Target Y : {self.target_Y:.2f} cm")
 
+        self.distance_error_label.setText(f"Distance Error : {self.Arm_dropoff_logic.Calcute_Error_In_Distance(self,self.target_X,self.target_Y):.2f} cm")
+        self.angle_error_label.setText(f"Angle Error : {self.Arm_dropoff.logic.Calcute_Error_In_Angle(self,self.target_X,self.target_Y,self.angle_value):.2f} degree")
 
     def Start_Subscriber(self):
 
