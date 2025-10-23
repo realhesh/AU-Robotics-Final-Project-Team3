@@ -14,7 +14,7 @@ setup(
         (os.path.join('share', package_name, 'pics'), glob('pics/*.jpg')),
         (os.path.join('share', package_name, 'pics'), glob('pics/*.gif'))
     ],
-    install_requires=['setuptools','PySide6','pygame','paho-mqtt'],
+    install_requires=['setuptools','PySide6','pygame','paho-mqtt','opencv-python','numpy','pyzbar'],
     zip_safe=True,
     maintainer='hesham',
     maintainer_email='hesham@todo.todo',

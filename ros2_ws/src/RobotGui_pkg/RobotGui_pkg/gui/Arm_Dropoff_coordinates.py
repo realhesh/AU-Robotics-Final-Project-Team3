@@ -8,7 +8,6 @@ from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
 import time 
 class Arm_Dropoff_Logic:
     def __init__(self):
-    
         self.target_X = 0.0
         self.target_Y = 0.0
         
@@ -51,6 +50,9 @@ class ArmDropoffCordinatesWidget(QWidget):
         self.port = 1883
         self.topic = "AUR/localization"
         self.Start_Subscriber()
+
+        self.target_X = 0.0
+        self.target_Y = 0.0
 
         self.x_value = 0.0
         self.y_value = 0.0
@@ -105,6 +107,7 @@ class ArmDropoffCordinatesWidget(QWidget):
         
        
     def update_display(self):
+        self.data.Set_Target_Coordinates(self.target_X, self.target_Y)
         self.x_value_label.setText(f"X : {self.x_value:.2f} cm")
         self.y_value_label.setText(f"Y : {self.y_value:.2f} cm")
         self.angle_value_label.setText(f"Angle : {self.angle_value:.2f} cm")
@@ -112,8 +115,8 @@ class ArmDropoffCordinatesWidget(QWidget):
         self.target_x_label.setText(f"Target X : {self.target_X:.2f} cm")
         self.target_y_label.setText(f"Target Y : {self.target_Y:.2f} cm")
 
-        self.distance_error_label.setText(f"Distance Error : {self.Arm_dropoff_logic.Calcute_Error_In_Distance(self,self.target_X,self.target_Y):.2f} cm")
-        self.angle_error_label.setText(f"Angle Error : {self.Arm_dropoff.logic.Calcute_Error_In_Angle(self,self.target_X,self.target_Y,self.angle_value):.2f} degree")
+        self.distance_error_label.setText(f"Distance Error : {self.data.Calcute_Error_In_Distance(self.x_value,self.y_value):.2f} cm")
+        self.angle_error_label.setText(f"Angle Error : {self.data.Calcute_Error_In_Angle(self.x_value,self.y_value,self.angle_value):.2f} degree")
 
     def Start_Subscriber(self):
 
@@ -138,6 +141,7 @@ class ArmDropoffCordinatesWidget(QWidget):
             self.x_value = float(x_str)
             self.y_value = float(y_str)
             self.angle_value = float(theta_str)
+            self.data.Set_Target_Coordinates(self.target_X, self.target_Y)
             self.update_display()
         except Exception as e:
             self.ros_node.get_logger().warn(f"Failed to parse coordinates: {message} ({e})")

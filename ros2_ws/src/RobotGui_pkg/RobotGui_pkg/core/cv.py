@@ -9,7 +9,7 @@ class Camera:
         self._ImgPath = os.path.join(self._PkgPath,'pics','nocam.jpg')
         self._EmptyFrame = cv2.imread(self._ImgPath)
         #print(pic_path)
-        self._CamIp = 'http://192.168.1.19:4747/video'
+        self._CamIp = 'http://192.168.1.15:4747/video'
         self._cap = cv2.VideoCapture(self._CamIp)
         self._cap.open(self._CamIp)
         self._frame = None
