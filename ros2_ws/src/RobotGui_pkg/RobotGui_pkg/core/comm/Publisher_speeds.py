@@ -29,8 +29,9 @@ def Start_Publisher():
         while True :
           client.loop_start()
           Publisher_Motor_Speeds(client)
-          time.sleep(1)
+          time.sleep(0.1)
     else : 
         print("No Connection , An Error Has Occured")   
 if __name__=="__main__":
+
     Start_Publisher()
