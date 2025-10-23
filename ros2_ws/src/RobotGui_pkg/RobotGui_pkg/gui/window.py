@@ -5,9 +5,6 @@ from PySide6.QtCore import Qt , QRect
 from PySide6.QtGui import QPalette , QColor , QPainter , QMovie
 from RobotGui_pkg.gui.Arm_Dropoff_coordinates import ArmDropoffCordinatesWidget, Arm_Dropoff_Logic
 from RobotGui_pkg.gui.JoyStickDisplay import JoystickWidget
-#from RobotGui.gui.coordinates_display import CoordinatesDisplay
-#from RobotGui.core.comm.client import setup
-#from RobotGui.core.cv import Camera
 from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
 from ament_index_python.packages import get_package_share_directory #i need this to go to where my pkg runs from install folder
 import os
@@ -45,8 +42,8 @@ class CentralWidget(QWidget):
         self._mainVBox.addWidget(self._CameraWidget,alignment=Qt.AlignCenter)
         self._DataHBox = QHBoxLayout()
         self._mainVBox.addLayout(self._DataHBox)
-        #self._ArmDropoffCoordinatesWidget = ArmDropoffCordinatesWidget(data = Arm_Dropoff_Logic())
-        #self._DataHBox.addWidget(self._ArmDropoffCoordinatesWidget)
+        self._ArmDropoffCoordinatesWidget = ArmDropoffCordinatesWidget(data = Arm_Dropoff_Logic(),ros_node=ros_node)
+        self._DataHBox.addWidget(self._ArmDropoffCoordinatesWidget)
         self._JoyStickWidget = JoystickWidget()
         self._DataHBox.addWidget(self._JoyStickWidget)
         #elf.ros_node.get_logger().info(f"{self._CameraWidget.size()}")

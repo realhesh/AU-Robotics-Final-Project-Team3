@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication , QMainWindow , QLabel , QVBoxLayout,
 from PySide6.QtCore import Qt,QRect
 from RobotGui_pkg.gui.window import Window
 from RobotGui_pkg.core.comm.GuiRosNode import GuiRosNode
+
 if __package__ is None and not getattr(sys, 'frozen', False):
     import os.path
     path = os.path.realpath(os.path.abspath(__file__))
