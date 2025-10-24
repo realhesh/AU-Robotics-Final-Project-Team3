@@ -15,18 +15,18 @@ class Window(QMainWindow):
         #
         self._PkgPath = get_package_share_directory('RobotGui_pkg')
         self._ImgPath = os.path.join(self._PkgPath,'pics','cow-cows.gif')
-        #self.movie = QMovie(self._ImgPath)
-        #self.movie.frameChanged.connect(self.update)  
-        #self.movie.start()
+        self.movie = QMovie(self._ImgPath)
+        self.movie.frameChanged.connect(self.update)  
+        self.movie.start()
         self.setCentralWidget(CentralWidget(ros_node=ros_node))
         self.setMinimumSize(1280, 720)
         self.show()
-    # def paintEvent(self, event):
-    #     painter = QPainter(self)
-    #     current_frame = self.movie.currentPixmap()
-    #     if not current_frame.isNull():
-    #         painter.drawPixmap(self.rect(), current_frame)
-    #     super().paintEvent(event)
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        current_frame = self.movie.currentPixmap()
+        if not current_frame.isNull():
+            painter.drawPixmap(self.rect(), current_frame)
+        super().paintEvent(event)
   
     
 

@@ -60,18 +60,17 @@ class ArmDropoffCordinatesWidget(QWidget):
         
         self.x_value_label = QLabel("X: 0.00 cm")
         self.x_value_label.setFont(QFont("Arial", 15))
-        self.x_value_label.setStyleSheet("color : green")
+        self.x_value_label.setStyleSheet("color : gold")
            
 
         self.y_value_label = QLabel("Y: 0.00 cm")
         self.y_value_label.setFont(QFont("Arial", 15))
-        self.y_value_label.setStyleSheet("color : green")
-        
+        self.y_value_label.setStyleSheet("color : gold")
 
         self.angle_value_label = QLabel("Angle: 0.00 degree")
         self.angle_value_label.setFont(QFont("Arial", 15))
-        self.angle_value_label.setStyleSheet("color : green")
-        
+        self.angle_value_label.setStyleSheet("color : gold")
+
         
         self.distance_error_label = QLabel("Distance Error: 0.00 cm")
         self.distance_error_label.setFont(QFont("Arial", 22 , QFont.Bold))
